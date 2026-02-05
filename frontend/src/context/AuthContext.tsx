@@ -3,16 +3,10 @@ import {
   useContext,
   useEffect,
   useState,
-  ReactNode,
+  type ReactNode,
 } from "react";
 import { apiClient } from "../api/client";
-
-interface User {
-  id: string;
-  email: string;
-  full_name: string;
-  picture: string;
-}
+import type { User } from "../types";
 
 interface AuthContextType {
   user: User | null;
@@ -36,7 +30,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setUser(data.user);
         }
       } catch (error) {
-        // Not logged in, that's fine
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -46,7 +39,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = () => {
-    // Hard redirect to Backend Google Auth
     window.location.href = "http://localhost:3000/api/auth/google";
   };
 

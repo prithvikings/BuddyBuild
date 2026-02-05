@@ -44,7 +44,8 @@ export const CodeEditor = ({
       <Editor
         height="100%"
         defaultLanguage={language}
-        defaultValue={initialValue}
+        language={language} // Ensure language updates dynamically
+        value={initialValue} // <--- FIX: Controlled Component
         theme="vs-dark" // Will switch to buddy-dark on mount
         onMount={handleEditorDidMount}
         onChange={(value) => onChange(value || "")}

@@ -13,7 +13,6 @@ import {
   Terminal,
   PanelLeft,
   User,
-  History,
   Languages,
 } from "lucide-react";
 import { apiClient } from "../api/client";
@@ -59,10 +58,15 @@ export const EditorPage = () => {
   // Polling Hook
   const { data: reviewData } = useReviewPolling(activeReviewId);
 
-  // Sync Code
+  // Sync Code & Language when a review loads (History click)
   useEffect(() => {
-    if (reviewData?.code_snippet) {
-      setCode(reviewData.code_snippet);
+    if (reviewData) {
+      if (reviewData.code_snippet) {
+        setCode(reviewData.code_snippet);
+      }
+      if (reviewData.language) {
+        setLanguage(reviewData.language);
+      }
     }
   }, [reviewData]);
 
@@ -213,7 +217,9 @@ export const EditorPage = () => {
           </div>
 
           {/* RIGHT GROUP: User Profile */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-3 shrink-0">
+            {" "}
+            {/* Fixed class */}
             {usageData && (
               <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-zinc-900 rounded-full border border-zinc-800/50">
                 <div
@@ -224,10 +230,10 @@ export const EditorPage = () => {
                 </span>
               </div>
             )}
-
             <div className="flex items-center gap-3 pl-3 border-l border-white/5">
+              {/* Use avatar_url here */}
               <img
-                src={user?.picture}
+                src={user?.avatar_url}
                 alt="User"
                 className="w-8 h-8 rounded-full border border-white/10 bg-zinc-800 object-cover"
               />

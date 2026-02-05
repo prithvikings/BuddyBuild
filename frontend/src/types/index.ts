@@ -12,6 +12,7 @@ export interface CodeReview {
   id: string;
   status: "PENDING" | "PROCESSING" | "COMPLETED" | "FAILED";
   code_snippet: string;
+  language?: string;
   calculated_score?: number;
   summary?: string;
   issues?: ReviewIssue[];
@@ -22,4 +23,11 @@ export interface ReviewResponse {
   message: string;
   reviewId: string;
   status: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  full_name: string;
+  avatar_url: string; // Matches Backend DB column
 }
