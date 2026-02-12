@@ -1,48 +1,64 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
-import {
-  ShieldCheck,
-  HandshakeIcon,
-  CheckCircle2,
-  ArrowRight,
-} from "lucide-react";
-import { motion } from "framer-motion";
+import { ShieldCheck, Zap, ArrowRight, Terminal, Lock } from "lucide-react";
+import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
   const { login } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center p-4 relative overflow-hidden">
-      {/* 2. Main Card */}
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden font-poppins">
+      {/* Background Decor - Subtle Grid */}
+      <div
+        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#27272a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      {/* Navigation / Back Button (Optional) */}
+      <div className="absolute top-8 left-8 z-20">
+        <Link
+          to={"/"}
+          className="text-zinc-500 hover:text-zinc-300 text-sm flex items-center gap-2 transition-colors"
+        >
+          &larr; Back to Home
+        </Link>
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="w-full max-w-md relative z-10"
       >
-        {/* Glass Container */}
-        <div className="bg-[#09090b]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-          {/* Header Section */}
-          <div className="pt-10 pb-8 px-8 text-center border-b border-white/5">
-            <div className="w-12 h-12 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center mx-auto mb-6 shadow-lg shadow-blue-900/20">
-              <HandshakeIcon className="w-6 h-6 text-white" />
+        {/* Main Card Container */}
+        <div className="bg-black border-l border-r border-b border-t border-dashed border-zinc-800">
+          {/* 1. Header Section */}
+          <div className="pt-12 pb-10 px-8 text-center border-b border-dashed border-zinc-800 bg-zinc-900/20">
+            <div className="w-12 h-12 bg-lime-400 rounded-lg flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_-5px_rgba(163,230,53,0.4)]">
+              <Zap className="w-6 h-6 text-black fill-black" />
             </div>
 
-            <h1 className="text-2xl font-semibold text-white tracking-tight mb-2">
-              Welcome to BuddyBuild
+            <h1 className="text-2xl font-medium text-white tracking-tight mb-3">
+              Welcome back
             </h1>
-            <p className="text-zinc-400 text-sm">
-              Deterministic code reviews for serious engineering teams.
+            <p className="text-zinc-400 text-sm max-w-xs mx-auto leading-relaxed">
+              Sign in to manage your node configurations and monitor detailed
+              analytics.
             </p>
           </div>
 
-          {/* Action Section */}
-          <div className="p-8 bg-[#09090b]">
+          {/* 2. Action Section */}
+          <div className="p-8 md:p-10 bg-black flex flex-col gap-6">
+            {/* Google Button */}
             <button
               onClick={login}
-              className="group relative w-full flex items-center justify-center gap-3 bg-white hover:bg-zinc-50 active:bg-zinc-100 text-zinc-900 font-medium py-2.5 px-4 rounded-lg transition-all duration-200 shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] active:scale-[0.98] border border-transparent hover:border-zinc-200 cursor-pointer"
+              className="group relative w-full flex items-center justify-center gap-3 bg-white hover:bg-zinc-200 text-black font-medium py-3 px-4 rounded-lg transition-all duration-200 active:scale-[0.98]"
             >
-              {/* High-Quality SVG Google Logo */}
+              {/* Google Icon */}
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 24 24"
@@ -66,49 +82,56 @@ export const LoginPage = () => {
                 />
               </svg>
 
-              <span className="font-poppins text-sm tracking-wide">
-                Continue with Google
-              </span>
+              <span className="text-sm font-medium">Continue with Google</span>
 
-              {/* Sliding Arrow Animation */}
-              <div className="absolute right-4 flex items-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
-                <ArrowRight className="w-4 h-4 text-zinc-400" />
-              </div>
+              <ArrowRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 absolute right-4" />
             </button>
 
-            {/* Trust Signals */}
-            <div className="mt-8">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="h-px bg-white/10 flex-1" />
-                <span className="text-[10px] uppercase tracking-widest text-zinc-600 font-semibold">
-                  System Secured
-                </span>
-                <div className="h-px bg-white/10 flex-1" />
-              </div>
+            {/* Separator */}
+            <div className="flex items-center gap-4">
+              <div className="h-px bg-zinc-800 flex-1" />
+              <span className="text-[10px] uppercase tracking-widest text-zinc-600 font-semibold">
+                Secured by
+              </span>
+              <div className="h-px bg-zinc-800 flex-1" />
+            </div>
 
-              <div className="bg-zinc-900/50 rounded-lg border border-white/5 p-3 space-y-2">
-                <div className="flex items-center gap-3 text-xs text-zinc-400">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>SOC2 Compliant Architecture</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-zinc-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Automated OWASP Vulnerability Scanning</span>
-                </div>
+            {/* Trust Badges - Grid Layout */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="border border-dashed border-zinc-800 p-3 rounded flex flex-col gap-2 items-start hover:bg-zinc-900/30 transition-colors">
+                <ShieldCheck className="w-4 h-4 text-lime-400" />
+                <span className="text-[10px] text-zinc-400 font-medium">
+                  SOC2 Type II
+                  <br />
+                  Compliant
+                </span>
+              </div>
+              <div className="border border-dashed border-zinc-800 p-3 rounded flex flex-col gap-2 items-start hover:bg-zinc-900/30 transition-colors">
+                <Lock className="w-4 h-4 text-lime-400" />
+                <span className="text-[10px] text-zinc-400 font-medium">
+                  End-to-End
+                  <br />
+                  Encryption
+                </span>
               </div>
             </div>
-          </div>
 
-          {/* Footer Bar */}
-          <div className="bg-black/20 py-3 text-center border-t border-white/5">
-            <p className="text-[10px] text-zinc-600">
-              By logging in, you agree to our Policy Engine terms.
-            </p>
+            {/* Terminal Style Notice */}
+            <div className="bg-zinc-900/50 rounded border border-zinc-800 p-3 flex items-start gap-3">
+              <Terminal className="w-4 h-4 text-zinc-500 mt-0.5 shrink-0" />
+              <div className="space-y-1">
+                <p className="text-[10px] text-zinc-400 font-mono">
+                  <span className="text-lime-400">$</span> auth_session --secure
+                </p>
+                <p className="text-[10px] text-zinc-500 leading-snug">
+                  By authenticating, you agree to our Policy Engine terms and
+                  Developer Agreement.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
     </div>
   );
 };
-
-// ... inside your component
