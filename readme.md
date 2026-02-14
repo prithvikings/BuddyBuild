@@ -13,6 +13,7 @@ BuddyBuild is a high-performance, AI-driven platform designed to streamline code
 - **📊 Usage Tracking**: Monitor AI usage and review history.
 - **🎨 Modern UI**: Beautiful, responsive interface built with Tailwind CSS 4 and Motion for smooth animations.
 
+
 ---
 
 ## 🛠️ Technology Stack
